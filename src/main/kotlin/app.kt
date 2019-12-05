@@ -1,7 +1,4 @@
-import days.J001
-import days.J002
-import days.J003
-import days.J004
+import days.*
 
 fun main(args: Array<String>) {
     println("J001")
@@ -9,7 +6,7 @@ fun main(args: Array<String>) {
     println("----------------------")
     println("J002")
     val j002Array = J002.INPUT.split(",").map { it.toInt() }.toIntArray()
-    J002.run(j002Array.copyOf().also {    it[1] = 12; it[2] = 2 }).also {
+    J002.run(j002Array.copyOf().also { it[1] = 12; it[2] = 2 }).also {
         println(it.joinToString())
     }
     J002.findVerb(j002Array, 19690720).also {
@@ -26,5 +23,13 @@ fun main(args: Array<String>) {
     println("J004")
     println(J004.possiblePasswordsWithin(J004.INPUT))
     println(J004.realPossiblePasswordsCountWithin(J004.INPUT))
+
+    println("----------------------")
+    println("J005")
+    val j005Args = J005.INPUT.split(",").map { it.toInt() }.toIntArray()
+    println(J005.run(j005Args.copyOf(), 1))
+    println()
+    println("PART 2")
+    println(J005.run(j005Args.copyOf(), 5))
 
 }
