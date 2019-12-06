@@ -32,4 +32,10 @@ fun main(args: Array<String>) {
     println("PART 2")
     println(J005.run(j005Args.copyOf(), 5))
 
+    println("----------------------")
+    println("J006")
+    val j006input = loadResource("j006.txt")
+    println(J006.orbitsCountChecksum(j006input))
+    println(J006.minimumOrbitalTransfersCount(j006input, "YOU", "SAN", false))
+
 }

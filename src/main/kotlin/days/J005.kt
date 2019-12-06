@@ -65,7 +65,6 @@ object J005 {
                 throw IllegalStateException("Index out of bound. $index > ${args.size}")
             }
             val params = args[index]
-            println(args.copyOfRange(index, index + 4).joinToString())
             val (mode0, mode1, mode2, opcode) = parseParams(params)
             when (opcode) {
                 Opcode.MUL -> {
