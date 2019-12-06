@@ -17,12 +17,12 @@ object J004 {
         val password = value.toString()
 
         return TWO_IDENTICAL_DIGITS_REGEX.matches(password) &&
-                password.foldIndexed(true) { index: Int, acc: Boolean, c: Char ->
-                    val digit = c.toString().toInt()
-                    acc && password
-                        .take(index)
-                        .all { other -> other.toString().toInt() <= digit }
-                }
+            password.foldIndexed(true) { index: Int, acc: Boolean, c: Char ->
+                val digit = c.toString().toInt()
+                acc && password
+                    .take(index)
+                    .all { other -> other.toString().toInt() <= digit }
+            }
     }
 
     fun isReallyValid(value: Int): Boolean {
