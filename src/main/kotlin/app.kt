@@ -1,3 +1,4 @@
+import computer.parseIntCodes
 import days.*
 
 fun main(args: Array<String>) {
@@ -5,11 +6,11 @@ fun main(args: Array<String>) {
     J001.run(J001.INPUT.split("\n").toTypedArray())
     println("----------------------")
     println("J002")
-    val j002Array = J002.INPUT.split(",").map { it.toInt() }.toIntArray()
+    val j002Array = parseIntCodes(J002.INPUT)
     J002.run(j002Array.copyOf().also { it[1] = 12; it[2] = 2 }).also {
         println(it.joinToString())
     }
-    J002.findVerb(j002Array, 19690720).also {
+    J002.findVerb(j002Array.copyOf(), 19690720).also {
         println(it.joinToString())
     }
     println("----------------------")
@@ -37,5 +38,9 @@ fun main(args: Array<String>) {
     val j006input = loadResource("j006.txt")
     println(J006.orbitsCountChecksum(j006input))
     println(J006.minimumOrbitalTransfersCount(j006input, "YOU", "SAN", false))
+
+    println("----------------------")
+    println("J007")
+    println("Max: ${J007.findMaxOrder(J007.INPUT, J007.Mode.SIMPLE)}")
 
 }
