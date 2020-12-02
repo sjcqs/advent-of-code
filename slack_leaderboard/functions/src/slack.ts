@@ -1,7 +1,7 @@
 import Axios from "axios";
 import { SlackConfig } from "./entity/configs";
 import { Leaderboard } from "./entity/leaderboard";
-import { Member } from "./entity/member";
+import { Day, Member } from "./entity/member";
 
 const header = {
     "type": "header",
@@ -50,12 +50,32 @@ function rankBlock(icon: string, position: number, member: Member) {
         "type": "section",
         "text": {
             "type": "plain_text",
-            "text": `${icon} ${position} - ${member.name} ${member.local_score} (${member.stars} :star:)`,
+            "text": `${icon} ${position} - ${member.name} (${member.localScore})`,
             "emoji": true,
         },
     }
 }
 
+function starsBlock(days: Day[]) {
+    let stars = ""
+    for (const day of days) {
+        if (day.hasFirstStar && day.hasSecondStar) {
+            stars += ":doublestar: "
+        } else if(day.hasFirstStar){
+            stars += ":star:"
+        }
+    }
+    return {
+        "type": "context",
+        "elements": [
+            {
+                "type": "plain_text",
+                "text": stars,
+                "emoji": true,
+            },
+        ],
+    }
+}
 function firstRankBlock(member: Member) {
     return rankBlock(":first_place_medal:", 1, member)
 }
@@ -80,18 +100,21 @@ export async function publishLeaderboard(leaderboard:Leaderboard, slackConfig: S
 function buildPayload(leaderboard: Leaderboard) {
     const members = leaderboard.members
         .filter((member) => member.stars > 0)
-        .sort((firstMember, secondMember) => (secondMember.local_score - firstMember.local_score))
+        .sort((firstMember, secondMember) => (secondMember.localScore - firstMember.localScore))
     const blocks = [
         header,
         divider,
         firstRankBlock(members[0]),
+        starsBlock(members[0].days),
         secondRankBlock(members[1]),
+        starsBlock(members[1].days),
         thirdRankBlock(members[2]),
+        starsBlock(members[2].days),
     ]
     for (let index = 3; index < members.length; index++) {
         const member = members[index];
 
-        blocks.push(otherRankBlock(member, index + 1))
+        blocks.push(otherRankBlock(member, index + 1), starsBlock(member.days),)
     }
     blocks.push(divider, adventOfCodeLink, updateBlock())
     return {

@@ -1,5 +1,5 @@
-import { Member } from "./member";
+import { RestMember } from "./member";
 
 export interface RestMembers {
-      [id: string]: Member
+      [id: string]: RestMember
 }

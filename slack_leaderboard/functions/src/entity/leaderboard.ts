@@ -1,4 +1,4 @@
-import { Member } from "./member";
+import { Member, toMember } from "./member";
 import { RestMembers } from "./members";
 
 export interface RestLeaderboard {
@@ -8,16 +8,16 @@ export interface RestLeaderboard {
 }
 
 export interface Leaderboard {
-    owner_id: string;
+    ownerId: string;
     event: string;
     members: Member[];
 }
 
 export function toLeaderboard(toMap: RestLeaderboard): Leaderboard {
     return {
-        owner_id: toMap.owner_id,
+        ownerId: toMap.owner_id,
         event: toMap.event,
-        members: Object.values(toMap.members),
+        members: Object.values(toMap.members).map(toMember),
     }
 }
   
