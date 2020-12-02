@@ -1,0 +1,1 @@
+fun loadResource(resource: String) = object {}.javaClass.getResource(resource).readText()
