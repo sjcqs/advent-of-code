@@ -1,5 +1,6 @@
 nodes_modules
 .runtimeconfig.json
+.runtimeconfig-dev.json
 ui-debug.json
 .idea
 .npm
