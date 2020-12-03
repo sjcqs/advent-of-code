@@ -60,9 +60,9 @@ function starsBlock(total: number,days: Day[]) {
     let stars = ""
     for (const day of days) {
         if (day.hasFirstStar && day.hasSecondStar) {
-            stars += ":doublestar: "
+            stars += ":star: "
         } else if(day.hasFirstStar){
-            stars += ":star:"
+            stars += ":silver_star:"
         }
     }
     stars += `(${total})`
