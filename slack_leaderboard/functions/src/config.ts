@@ -7,12 +7,14 @@ const SLACK_KEY = "slack"
 const config = functions.config()
 
 export function adventOfCode(): AdventOfCodeConfig {
-    const session = config[ADVENT_OF_CODE_KEY].session
-    const url = config[ADVENT_OF_CODE_KEY].url + ".json"
+    const adventOfCodeConfig = config[ADVENT_OF_CODE_KEY]
+    const session = adventOfCodeConfig.session
+    const url = adventOfCodeConfig.url + ".json"
 
     return { url: url, sessionValue: session }
 }
 
 export function slack(): SlackConfig {
-    return { hookUrl: config[SLACK_KEY].incomminghook, channel: config[SLACK_KEY].channel }
+    const slackConfig = config[SLACK_KEY]
+    return { hookUrl: slackConfig.incomminghook, channel: slackConfig.channel }
 }
