@@ -50,13 +50,13 @@ function rankBlock(icon: string, position: number, member: Member) {
         "type": "section",
         "text": {
             "type": "plain_text",
-            "text": `${icon} ${position} - ${member.name} (${member.localScore})`,
+            "text": `${icon} ${position} - ${member.name}: ${member.localScore}`,
             "emoji": true,
         },
     }
 }
 
-function starsBlock(days: Day[]) {
+function starsBlock(total: number,days: Day[]) {
     let stars = ""
     for (const day of days) {
         if (day.hasFirstStar && day.hasSecondStar) {
@@ -65,6 +65,7 @@ function starsBlock(days: Day[]) {
             stars += ":star:"
         }
     }
+    stars += `(${total})`
     return {
         "type": "context",
         "elements": [
@@ -105,16 +106,16 @@ function buildPayload(leaderboard: Leaderboard) {
         header,
         divider,
         firstRankBlock(members[0]),
-        starsBlock(members[0].days),
+        starsBlock(members[0].stars, members[0].days),
         secondRankBlock(members[1]),
-        starsBlock(members[1].days),
+        starsBlock(members[1].stars, members[1].days),
         thirdRankBlock(members[2]),
-        starsBlock(members[2].days),
+        starsBlock(members[2].stars, members[2].days),
     ]
     for (let index = 3; index < members.length; index++) {
         const member = members[index];
 
-        blocks.push(otherRankBlock(member, index + 1), starsBlock(member.days),)
+        blocks.push(otherRankBlock(member, index + 1), starsBlock(member.stars, member.days),)
     }
     blocks.push(divider, adventOfCodeLink, updateBlock())
     return {

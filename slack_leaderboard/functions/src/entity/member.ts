@@ -23,7 +23,6 @@ export interface RestStarTs {
 export function toMember(model: RestMember): Member {
     const days: Day[] = []
     for (let index = 1; index <= 24; index++) {
-        console.log("Member: " + model)
         const key = `${index}`
         if (key in model.completion_day_level) {
             const day = model.completion_day_level[key];
