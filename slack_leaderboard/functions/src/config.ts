@@ -1,20 +1,29 @@
-import * as functions from 'firebase-functions';
+import { config } from 'firebase-functions';
 import { AdventOfCodeConfig, SlackConfig } from './entity/configs';
 
 const ADVENT_OF_CODE_KEY = "adventofcode"
 const SLACK_KEY = "slack"
 
-const config = functions.config()
+export class Config {
+    adventOfCode: AdventOfCodeConfig
+    slack: SlackConfig
 
-export function adventOfCode(): AdventOfCodeConfig {
-    const adventOfCodeConfig = config[ADVENT_OF_CODE_KEY]
-    const session = adventOfCodeConfig.session
-    const url = adventOfCodeConfig.url + ".json"
+    constructor(config: config.Config) {
+        this.adventOfCode = this.buildAdventOfCodeConfig(config)
+        this.slack = this.buildSlackConfig(config)
+    }
 
-    return { url: url, sessionValue: session }
-}
+    private buildAdventOfCodeConfig(config: config.Config): AdventOfCodeConfig {
+        const adventOfCodeConfig = config[ADVENT_OF_CODE_KEY]
+        const session = adventOfCodeConfig.session
+        const url = adventOfCodeConfig.url + ".json"
+    
+        return { url: url, sessionValue: session }
+    }
 
-export function slack(): SlackConfig {
-    const slackConfig = config[SLACK_KEY]
-    return { hookUrl: slackConfig.incomminghook, channel: slackConfig.channel }
+    private buildSlackConfig(config: config.Config): SlackConfig {
+        const slackConfig = config[SLACK_KEY]
+        return { hookUrl: slackConfig.incomminghook, channel: slackConfig.channel }
+    }
+
 }
