@@ -7,7 +7,7 @@ import { publishLeaderboard } from "./slack";
 
 admin.initializeApp(functions.config().firebase);
 
-exports.scheduledFetchLeaderboard = functions.pubsub.schedule("30 12 * * *")
+exports.scheduledFetchLeaderboard = functions.pubsub.schedule("0 14 * * *")
 .timeZone("Europe/Paris")
 .onRun(async (context) => {
     const leaderboard = await adventOfCode.getLeaderboard(config.adventOfCode())
