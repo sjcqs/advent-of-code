@@ -7,16 +7,22 @@ import { publishLeaderboard } from "./slack";
 
 admin.initializeApp(functions.config().firebase);
 
-exports.scheduledFetchLeaderboard = functions.pubsub.schedule("0 14 * * *")
-.timeZone("Europe/Paris")
-.onRun(async (context) => {
-    const leaderboard = await adventOfCode.getLeaderboard(config.adventOfCode())
-    await database.setLeaderboard(leaderboard)
-    await publishLeaderboard(leaderboard, config.slack())
-})
+exports.scheduledFetchLeaderboard = functions.pubsub
+    .schedule("0 14 * * *")
+    .timeZone("Europe/Paris")
+    .onRun(
+        async (context) => {
+            const leaderboard = await adventOfCode.getLeaderboard(config.adventOfCode())
+            await database.setLeaderboard(leaderboard)
+            await publishLeaderboard(leaderboard, config.slack())
+        }
+    )
 
-exports.fetchLeaderboard = functions.https.onCall(async (data, context) => {
-    const leaderboard = await adventOfCode.getLeaderboard(config.adventOfCode())
-    await database.setLeaderboard(leaderboard)
-    await publishLeaderboard(leaderboard, config.slack())
-  });
+exports.fetchLeaderboard = functions.https
+    .onCall(
+        async (data, context) => {
+            const leaderboard = await adventOfCode.getLeaderboard(config.adventOfCode())
+            await database.setLeaderboard(leaderboard)
+            await publishLeaderboard(leaderboard, config.slack())
+        }
+    )

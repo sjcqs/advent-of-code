@@ -91,8 +91,7 @@ function buildPayload(leaderboard: Leaderboard) {
     ]
     for (let index = 3; index < members.length; index++) {
         const member = members[index];
-
-        blocks.push(otherRankBlock(member, index + 1),)
+        blocks.push(otherRankBlock(member, index + 1))
     }
     blocks.push(divider, adventOfCodeLink, updateBlock())
     return {
