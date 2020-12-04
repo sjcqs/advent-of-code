@@ -8,21 +8,21 @@ export class Config {
     adventOfCode: AdventOfCodeConfig
     slack: SlackConfig
 
-    constructor(config: config.Config) {
-        this.adventOfCode = this.buildAdventOfCodeConfig(config)
-        this.slack = this.buildSlackConfig(config)
+    constructor(firebaseConfig: config.Config) {
+        this.adventOfCode = this.buildAdventOfCodeConfig(firebaseConfig)
+        this.slack = this.buildSlackConfig(firebaseConfig)
     }
 
-    private buildAdventOfCodeConfig(config: config.Config): AdventOfCodeConfig {
-        const adventOfCodeConfig = config[ADVENT_OF_CODE_KEY]
+    private buildAdventOfCodeConfig(firebaseConfig: config.Config): AdventOfCodeConfig {
+        const adventOfCodeConfig = firebaseConfig[ADVENT_OF_CODE_KEY]
         const session = adventOfCodeConfig.session
         const url = adventOfCodeConfig.url + ".json"
     
         return { url: url, sessionValue: session }
     }
 
-    private buildSlackConfig(config: config.Config): SlackConfig {
-        const slackConfig = config[SLACK_KEY]
+    private buildSlackConfig(firebaseConfig: config.Config): SlackConfig {
+        const slackConfig = firebaseConfig[SLACK_KEY]
         return { hookUrl: slackConfig.incomminghook, channel: slackConfig.channel }
     }
 

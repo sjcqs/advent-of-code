@@ -48,54 +48,53 @@ export class AdventOfCodeApi {
     async getLeaderboard(): Promise<Leaderboard> {
         const config = { 
             headers: { Cookie: `session=${this.config.sessionValue}` }, 
-            withCredentials: true 
+            withCredentials: true,
         }
         return Axios.get(this.config.url, config)
             .then(response => response.data)
-            .then(this.mapper.mapLeaderboard)
+            .then((leaderboard) => this.mapper.mapLeaderboard(leaderboard))
     }
 }
 
 class AdventofCodeRestMapper {
 
-    mapLeaderboard = (toMap: RestLeaderboard): Leaderboard  => {
+    mapLeaderboard (toMap: RestLeaderboard): Leaderboard {
         const restMembers = Object.values(toMap.members);
-        restMembers.forEach((member) => console.log(member))
-        const members = mapMembers(restMembers);
+        const members = this.mapMembers(restMembers);
         return {
             ownerId: toMap.owner_id,
             event: toMap.event,
             members,
         }
     }
-}
 
-function mapMembers(members: RestMember[]) {
-    return members.map(mapMember);
-}
-
-function mapMember(model: RestMember): Member {
-    const days: Day[] = mapDays(model);
-    return {
-        id: model.id,
-        name: model.name,
-        stars: model.stars,
-        lastStarTs: model.last_star_ts,
-        localScore: model.local_score,
-        days: days,
+    mapMembers(members: RestMember[]): Member[] {
+        return members.map(this.mapMember.bind(this));
     }
-}
-
-function mapDays(model: RestMember) {
-    const days: Day[] = [];
-    for (let index = 1; index <= 24; index++) {
-        const key = `${index}`;
-        if (key in model.completion_day_level) {
-            const day = model.completion_day_level[key];
-            days.push({ hasFirstStar: "1" in day, hasSecondStar: "2" in day });
-        } else {
-            days.push({ hasFirstStar: false, hasSecondStar: false });
+    
+    mapMember(model: RestMember): Member {
+        const days: Day[] = this.mapDays(model);
+        return {
+            id: model.id,
+            name: model.name,
+            stars: model.stars,
+            lastStarTs: model.last_star_ts,
+            localScore: model.local_score,
+            days: days,
         }
     }
-    return days;
+    
+    mapDays(model: RestMember) {
+        const days: Day[] = [];
+        for (let index = 1; index <= 24; index++) {
+            const key = `${index}`;
+            if (key in model.completion_day_level) {
+                const day = model.completion_day_level[key];
+                days.push({ hasFirstStar: "1" in day, hasSecondStar: "2" in day });
+            } else {
+                days.push({ hasFirstStar: false, hasSecondStar: false });
+            }
+        }
+        return days;
+    }
 }

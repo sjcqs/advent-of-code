@@ -8,26 +8,25 @@ export class Database {
         this.database = database
     }
 
-    
-    getLastUpdate = async (): Promise<Date> => {
+    async getLastUpdate(): Promise<Date> {
         return this.database.ref("last_update")
         .once('value')
         .then((snapshot) => new Date(snapshot.val()))
     }
     
-    putLeaderboard = async (leaderboard: Leaderboard) => {
-        this.database.ref("leaderboard")
-        .set(leaderboard)
-        .then(this.putLastUpdate)
+    async putLeaderboard(leaderboard: Leaderboard) {
+        return this.database.ref("leaderboard")
+            .set(leaderboard)
+            .then(() => this.putLastUpdate())
     }
     
-    getLeaderboard = async (): Promise<Leaderboard> => {
+    async getLeaderboard(): Promise<Leaderboard> {
         return this.database.ref("leaderboard")
         .once('value')
         .then((snapshot) => snapshot.val())
     }
     
-    private putLastUpdate = async () => {
-        this.database.ref("last_update").set(new Date().toUTCString())
+    private async putLastUpdate(){
+        return this.database.ref("last_update").set(new Date().toUTCString())
     }
 }
