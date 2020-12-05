@@ -1,6 +1,6 @@
 import kotlinx.coroutines.runBlocking
 
-interface InputMapper<T> {
+fun interface InputMapper<T> {
     fun map(input: String): T
 }
 
