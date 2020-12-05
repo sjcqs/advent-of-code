@@ -7,12 +7,12 @@ import { Leaderboard } from "./entity/leaderboard";
 import { Slack } from "./slack";
 
 admin.initializeApp(functions.config().firebase);
+const config = new Config(functions.config());
+const slack = new Slack(config.slack)
+const database = new Database(admin.database())
+const api = new AdventOfCodeApi(config.adventOfCode)
 
 async function getAndPostLeaderboard() {
-    const config = new Config(functions.config());
-    const slack = new Slack(config.slack)
-    const database = new Database(admin.database())
-    const api = new AdventOfCodeApi(config.adventOfCode)
     const leaderboard: Leaderboard = await api.getLeaderboard()
 
     await database.putLeaderboard(leaderboard)
