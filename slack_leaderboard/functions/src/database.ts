@@ -27,6 +27,6 @@ export class Database {
     }
     
     private async putLastUpdate(){
-        return this.database.ref("last_update").set(new Date().toUTCString())
+        return this.database.ref("last_update").set(new Date().getTime())
     }
 }

@@ -16,7 +16,7 @@ interface RestMembers {
 
 interface RestMember {
     stars: number;
-    last_star_ts: string;
+    last_star_ts: number;
     global_score: number;
     id: string;
     local_score: number;

@@ -1,6 +1,6 @@
 export interface Member {
     stars: number;
-    lastStarTs: string;
+    lastStarTs: number;
     id: string;
     localScore: number;
     name: string;

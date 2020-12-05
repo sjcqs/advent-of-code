@@ -58,7 +58,7 @@ export class MessageBuilder {
             "elements": [
                 {
                     "type": "plain_text",
-                    "text": `Updated at ${new Date().toLocaleString("fr-FR")}`,
+                    "text": `Updated at ${new Date().toLocaleString()}`,
                     "emoji": false,
                 },
             ],
@@ -66,11 +66,15 @@ export class MessageBuilder {
     }
     
     private rankBlock(icon: string, position: number, member: Member) {
+        const name = member.name;
+        const score = member.localScore;
+        const stars = `${member.stars} :star:`
+        const text = `${icon} ${position} - ${name}: ${score} (${stars})`;
         return {
             "type": "section",
             "text": {
                 "type": "plain_text",
-                "text": `${icon} ${position} - ${member.name}: ${member.localScore} (${member.stars} :star:)`,
+                "text": text,
                 "emoji": true,
             },
         }

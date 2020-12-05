@@ -1,6 +1,7 @@
 import { config } from 'firebase-functions';
 import { AdventOfCodeConfig, SlackConfig } from './entity/configs';
 
+const ON_EMULATOR = process.env.FUNCTIONS_EMULATOR === 'true'
 const ADVENT_OF_CODE_KEY = "adventofcode"
 const SLACK_KEY = "slack"
 
@@ -15,15 +16,21 @@ export class Config {
 
     private buildAdventOfCodeConfig(firebaseConfig: config.Config): AdventOfCodeConfig {
         const adventOfCodeConfig = firebaseConfig[ADVENT_OF_CODE_KEY]
-        const session = adventOfCodeConfig.session
-        const url = adventOfCodeConfig.url + ".json"
+        const session = adventOfCodeConfig['session']
+        const url = adventOfCodeConfig['url'] + ".json"
     
         return { url: url, sessionValue: session }
     }
 
     private buildSlackConfig(firebaseConfig: config.Config): SlackConfig {
         const slackConfig = firebaseConfig[SLACK_KEY]
-        return { hookUrl: slackConfig.incomminghook, channel: slackConfig.channel }
+        let incommingHook: string
+        if (ON_EMULATOR) {
+            incommingHook = slackConfig['incominghook_dev']
+        } else {
+            incommingHook = slackConfig['incominghook']
+        }
+        return { hookUrl: incommingHook }
     }
 
 }

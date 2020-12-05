@@ -4,6 +4,5 @@ export interface AdventOfCodeConfig {
 }
 
 export interface SlackConfig {
-    hookUrl: string,
-    channel: string
+    hookUrl: string
 }
