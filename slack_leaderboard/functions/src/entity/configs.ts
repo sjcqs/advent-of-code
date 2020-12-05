@@ -4,5 +4,6 @@ export interface AdventOfCodeConfig {
 }
 
 export interface SlackConfig {
-    hookUrl: string
+    hookUrl: string,
+    botToken: string
 }

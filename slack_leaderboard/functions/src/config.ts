@@ -30,7 +30,7 @@ export class Config {
         } else {
             incommingHook = slackConfig['incominghook']
         }
-        return { hookUrl: incommingHook }
+        return { hookUrl: incommingHook, botToken: slackConfig['bot_token'] }
     }
 
 }
