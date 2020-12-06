@@ -4,6 +4,8 @@ import org.junit.jupiter.params.provider.MethodSource
 import puzzle04.Puzzle04Part02
 import puzzle05.Seat
 import puzzle05.Puzzle05Part01
+import puzzle05.Puzzle05Part02
+import puzzle06.Puzzle06Part02
 import java.util.stream.Stream
 
 internal class Puzzle05Test {
@@ -19,12 +21,6 @@ internal class Puzzle05Test {
         assertEquals(expected, Puzzle05Part01.runBlocking(input))
     }
 
-    @ParameterizedTest
-    @MethodSource("stream02")
-    fun run02(input: String, expected: Int) {
-        assertEquals(expected, Puzzle04Part02.runBlocking(input))
-    }
-
 
     companion object {
         @JvmStatic
@@ -35,12 +31,5 @@ internal class Puzzle05Test {
         )
         @JvmStatic
         fun stream01() = Stream.of("Puzzle05/001.txt" gives 820)
-
-        @JvmStatic
-        fun stream02() = Stream.of(
-            "Puzzle04/002.txt" gives 0,
-            "Puzzle04/003.txt" gives 4,
-            "Puzzle04/004.txt" gives 4
-        )
     }
 }
