@@ -1,9 +1,9 @@
 import Axios from "axios";
-import { SlackConfig } from "./entity/configs";
-import { Leaderboard } from "./entity/leaderboard";
-import { MessageBuilder } from "./message_builder";
+import { SlackConfig } from "../entity/configs";
+import { Leaderboard } from "../entity/leaderboard";
+import { MessageBuilder } from "../message_builder";
 
-export class Slack {
+export class SlackPublisher {
     private config: SlackConfig
     private messageBuilder: MessageBuilder
 

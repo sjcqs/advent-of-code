@@ -5,5 +5,8 @@ export interface AdventOfCodeConfig {
 
 export interface SlackConfig {
     hookUrl: string,
-    botToken: string
+    botToken: string,
+    verificationToken: string,
+    appId: string,
+    signingSecret: string
 }

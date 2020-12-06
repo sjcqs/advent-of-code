@@ -4,7 +4,7 @@ import { Leaderboard } from "./entity/leaderboard";
 export class Database {
     static Refs = {
         leaderboard: 'leaderboard',
-        lastUpdate: 'lastUpdate'
+        lastUpdate: 'lastUpdate',
     }
 
     private database: admin.database.Database
