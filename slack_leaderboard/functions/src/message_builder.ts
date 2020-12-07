@@ -31,7 +31,7 @@ export class MessageBuilder {
         },
     }
 
-    leaderboard(leaderboard: Leaderboard) {
+    leaderboardBlocks(leaderboard: Leaderboard) {
         const members = this.sortMembers(leaderboard)
         const blocks = [
             this.header,
@@ -45,11 +45,7 @@ export class MessageBuilder {
             blocks.push(this.otherRankBlock(member, index + 1))
         }
         blocks.push(this.divider, this.adventOfCodeLink, this.updateBlock())
-        return {
-            "username": "Advent of Code",
-            "icon_emoji": ":aoc:",
-            "blocks": blocks,
-        }
+        return blocks
     }
     
     private updateBlock() {

@@ -5,6 +5,7 @@ export class Database {
     static Refs = {
         leaderboard: 'leaderboard',
         lastUpdate: 'lastUpdate',
+        home: 'home',
     }
 
     private database: admin.database.Database
@@ -13,10 +14,23 @@ export class Database {
         this.database = database
     }
 
-    async getLastUpdate(): Promise<Date> {
+    async getLastUpdate(): Promise<number> {
         return this.database.ref(Database.Refs.lastUpdate)
             .once('value')
-            .then((snapshot) => new Date(snapshot.val()))
+            .then((snapshot) => snapshot.val())
+    }
+
+    async putHomeUpdate(userId: string) {
+        return this.database.ref(Database.Refs.home)
+            .child(userId)
+            .set(new Date().getTime())
+    }
+
+    async getHomeLastUpdate(userId: string): Promise<number> {
+        return this.database.ref(Database.Refs.home)
+            .child(userId)
+            .once('value')
+            .then((snapshot) => snapshot.val())
     }
     
     async putLeaderboard(leaderboard: Leaderboard) {

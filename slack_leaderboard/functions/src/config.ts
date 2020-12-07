@@ -35,7 +35,7 @@ export class Config {
             botToken: slackConfig['bot_token'],
             signingSecret: slackConfig['signing_secret'],
             appId: slackConfig['app_id'],
-            verificationToken: slackConfig['verification_token']
+            verificationToken: slackConfig['verification_token'],
         }
     }
 

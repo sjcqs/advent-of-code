@@ -13,7 +13,7 @@ export class VerifyToken implements Interceptor {
 
     async intercept(chain: Chain): Promise<void> {
         const request: TokenHolder = chain.request.body
-        if(request.token != this.token) {
+        if(request.token !== this.token) {
             console.error("Invalid verification token")
             chain.response.status(401).send()
             return

@@ -30,7 +30,7 @@ export class RealChain implements Chain {
     }
 
     async proceed(request: Request, response: Response<any>): Promise<void> {
-        if (this.index == this.interceptors.length) {
+        if (this.index === this.interceptors.length) {
             return this.handleRequest(request, response)
         }
 
