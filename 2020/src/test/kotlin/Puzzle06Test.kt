@@ -1,8 +1,8 @@
+/*
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
-import puzzle04.Puzzle04Part02
 import puzzle06.Answers
 import puzzle06.Group
 import puzzle06.Puzzle06Part01
@@ -44,9 +44,11 @@ internal class Puzzle06Test {
             Arguments.of(
                 "abc",
                 Group(
-                    listOf(
+                    setOf('a', 'b', 'c')
+                    setOf(
                         Answers(
-                            0, mapOf(
+                            0,
+                            mapOf(
                                 'a' to true,
                                 'b' to true,
                                 'c' to true,
@@ -59,7 +61,7 @@ internal class Puzzle06Test {
             ),
             Arguments.of(
                 "b", Group(
-                    listOf(
+                    setOf(
                         Answers(0, mapOf('b' to true))
                     )
                 ),
@@ -73,7 +75,7 @@ internal class Puzzle06Test {
                 c
                 """.trimIndent(),
                 Group(
-                    listOf(
+                    setOf(
                         Answers(0, mapOf('a' to true, 'b' to false, 'c' to false)),
                         Answers(1, mapOf('a' to false, 'b' to true, 'c' to false)),
                         Answers(2, mapOf('a' to false, 'b' to false, 'c' to true)),
@@ -88,7 +90,7 @@ internal class Puzzle06Test {
                 ac
                 """.trimIndent(),
                 Group(
-                    listOf(
+                    setOf(
                         Answers(0, mapOf('a' to true, 'b' to true, 'c' to false)),
                         Answers(1, mapOf('a' to true, 'b' to false, 'c' to true)),
                     )
@@ -104,7 +106,7 @@ internal class Puzzle06Test {
                 a
                 """.trimIndent(),
                 Group(
-                    listOf(
+                    setOf(
                         Answers(0, mapOf('a' to true)),
                         Answers(1, mapOf('a' to true)),
                         Answers(2, mapOf('a' to true)),
@@ -125,3 +127,4 @@ internal class Puzzle06Test {
         )
     }
 }
+*/
