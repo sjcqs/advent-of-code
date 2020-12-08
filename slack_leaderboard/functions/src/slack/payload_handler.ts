@@ -5,6 +5,7 @@ import { RealChain } from './interceptor';
 import { Payload, PayloadActions, PayloadRequest } from './payload';
 import { VerifySigningSecret } from './verify_signing_secret';
 
+const TYPE_BLOCK_ACTIONS = "block_actions"
 
 export class SlackPayloadClient {
     private homeManager: HomeManager
@@ -32,8 +33,11 @@ export class SlackPayloadClient {
         const payload: Payload = JSON.parse(payloadRequest.payload)
         
         console.log("payload: " + payload.type)
-        if (payload.type === PayloadActions.refresh) {
-            return this.homeManager.updateHome(payload.user.id, true)
+        if (payload.type === TYPE_BLOCK_ACTIONS) {
+            console.log("payload: " + payload.actions[0].type)
+            if (payload.actions[0].type === PayloadActions.refresh) {
+                return this.homeManager.updateHome(payload.user.id, true)
+            }
         }
     }
 }
