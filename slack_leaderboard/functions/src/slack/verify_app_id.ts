@@ -1,5 +1,4 @@
 import { Chain, Interceptor } from "./interceptor"
-import { PayloadRequest } from "./payload"
 
 interface AppIdHolder {
     api_app_id: string
