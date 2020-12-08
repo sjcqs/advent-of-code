@@ -1,5 +1,6 @@
-import { Leaderboard } from "./entity/leaderboard";
-import { Member } from "./entity/member";
+import { Leaderboard } from "../entity/leaderboard";
+import { Member } from "../entity/member";
+import { PayloadActions } from "./payload";
 
 export class MessageBuilder {
     private header = {
@@ -27,11 +28,38 @@ export class MessageBuilder {
             },
             "value": "advent_of_code",
             "url": "https://adventofcode.com/2020",
-            "action_id": "button-action",
+            "action_id": PayloadActions.adventOfCode,
         },
     }
 
-    leaderboardBlocks(leaderboard: Leaderboard) {
+    private refreshBlock = {
+        "type": "section",
+        "text": {
+            "type": "mrkdwn",
+            "text": "Refresh the leaderboard.",
+        },
+        "accessory": {
+            "type": "button",
+            "text": {
+                "type": "plain_text",
+                "text": "Refresh",
+                "emoji": true,
+            },
+            "action_id": PayloadActions.refresh,
+        },
+    }
+	private refreshRateBlock =	{
+		"type": "context",
+		"elements": [
+			{
+				"type": "plain_text",
+				"text": ":information_source: The leaderboard can only be refreshed every 15 minutes.",
+				"emoji": true,
+			},
+		],
+	}
+
+    leaderboardBlocks(leaderboard: Leaderboard, addRefreshButton: boolean = false) {
         const members = this.sortMembers(leaderboard)
         const blocks = [
             this.header,
@@ -44,7 +72,18 @@ export class MessageBuilder {
             const member = members[index];
             blocks.push(this.otherRankBlock(member, index + 1))
         }
-        blocks.push(this.divider, this.adventOfCodeLink, this.updateBlock())
+        if (addRefreshButton) {
+            blocks.push(
+                this.divider,
+                this.refreshBlock,
+                this.refreshRateBlock
+            )
+        }
+        blocks.push(
+            this.divider,
+            this.adventOfCodeLink,
+            this.updateBlock()
+        )
         return blocks
     }
     

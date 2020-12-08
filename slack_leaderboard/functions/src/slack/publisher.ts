@@ -1,7 +1,7 @@
 import Axios from "axios";
 import { SlackConfig } from "../entity/configs";
 import { Leaderboard } from "../entity/leaderboard";
-import { MessageBuilder } from "../message_builder";
+import { MessageBuilder } from "./message_builder";
 
 const URL_PUBLISH_HOME = "https://slack.com/api/views.publish"
 

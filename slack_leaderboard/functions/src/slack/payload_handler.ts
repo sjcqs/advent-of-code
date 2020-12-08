@@ -1,24 +1,19 @@
 import { SlackConfig } from '../entity/configs';
 import { Request, Response} from '../entity/types'
-import { CompleteChallenge } from './complete_challenge';
-import { EventRequest } from './event_request';
 import { HomeManager } from './home_manager';
 import { RealChain } from './interceptor';
+import { Payload, PayloadActions, PayloadRequest } from './payload';
 import { VerifyAppId } from './verify_app_id';
 import { VerifySigningSecret } from './verify_signing_secret';
 
-const TYPE_CALLBACK = "event_callback"
-const EVENT_OPENED_APP_HOME = "app_home_opened"
 
-export class SlackEventClient {
+export class SlackPayloadClient {
     private homeManager: HomeManager
     private verifyAppId: VerifyAppId
-    private completeChallenge: CompleteChallenge
     private verifySigningSecret: VerifySigningSecret
 
     constructor (config: SlackConfig, homeManager: HomeManager) {
         this.verifyAppId = new VerifyAppId(config.appId)
-        this.completeChallenge = new CompleteChallenge()
         this.verifySigningSecret = new VerifySigningSecret(config.signingSecret)
         this.homeManager = homeManager
     }
@@ -28,11 +23,7 @@ export class SlackEventClient {
             request,
             response,
             0,
-            [
-                this.completeChallenge,
-                this.verifyAppId,
-                this.verifySigningSecret,
-            ],
+            [this.verifyAppId, this.verifySigningSecret],
             this.handleRequest.bind(this)
         )
         return chain.proceed(request, response)
@@ -40,11 +31,11 @@ export class SlackEventClient {
 
     private async handleRequest(request: Request, response: Response<any>) {
         response.status(200).send()
-        const model: EventRequest = request.body
-        if (model.type === TYPE_CALLBACK &&
-            model.event.type === EVENT_OPENED_APP_HOME
-        ) {
-            return this.homeManager.updateHome(model.event.user)
+        const payloadRequest: PayloadRequest = request.body
+        const payload: Payload = JSON.parse(payloadRequest.payload)
+        
+        if (payload.type === PayloadActions.refresh) {
+            return this.homeManager.updateHome(payload.user.id, true)
         }
     }
 }

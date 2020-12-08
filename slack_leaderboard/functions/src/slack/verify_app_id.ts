@@ -1,6 +1,9 @@
 import { Chain, Interceptor } from "./interceptor"
-import { EventRequest } from "./event_request"
+import { PayloadRequest } from "./payload"
 
+interface AppIdHolder {
+    api_app_id: string
+}
 export class VerifyAppId implements Interceptor {
     private appId: string
     
@@ -9,7 +12,13 @@ export class VerifyAppId implements Interceptor {
     }
 
     async intercept(chain: Chain): Promise<void> {
-        const request: EventRequest = chain.request.body
+        const body = chain.request.body
+        let request: AppIdHolder
+        if (body as PayloadRequest) {
+            request = JSON.parse(body.payload)
+        } else {
+            request = body
+        }
         if(request.api_app_id !== this.appId) {
             console.error("Invalid app id")
             chain.response.status(401).send()

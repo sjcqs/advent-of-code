@@ -5,9 +5,9 @@ import { Config } from './config';
 import { Database } from './database';
 import { Leaderboard } from './entity/leaderboard';
 import { SlackPublisher } from './slack/publisher';
-import { Request, Response} from './entity/types'
 import { SlackEventClient } from './slack/event_handler';
 import { HomeManager } from './slack/home_manager';
+import { SlackPayloadClient } from './slack/payload_handler';
 
 admin.initializeApp(functions.config().firebase);
 const config = new Config(functions.config());
@@ -16,6 +16,7 @@ const database = new Database(admin.database())
 const api = new AdventOfCodeApi(config.adventOfCode)
 const homeManager = new HomeManager(database, api, publisher)
 const slackEventClient = new SlackEventClient(config.slack, homeManager)
+const slackPayloadClient = new SlackPayloadClient(config.slack, homeManager)
 
 async function getAndPostLeaderboard() {
     const leaderboard: Leaderboard = await api.getLeaderboard()
@@ -24,13 +25,15 @@ async function getAndPostLeaderboard() {
         .then(() => database.putLeaderboard(leaderboard))
 }
 
-async function handleSlackEvents(request: Request, response: Response<any>): Promise<void> {
-    await slackEventClient.onRequest(request, response)
-}
-
 exports.scheduledFetchLeaderboard = functions.pubsub
     .schedule('0 14 * * *')
     .timeZone('Europe/Paris')
     .onRun(getAndPostLeaderboard)
 
-exports.slackEvents = functions.https.onRequest(handleSlackEvents)
+exports.slackEvents = functions.https.onRequest(
+    (request, response) => slackEventClient.onRequest(request, response)
+)
+
+exports.slackPayloads = functions.https.onRequest(
+    (request, response) => slackPayloadClient.onRequest(request, response)
+)

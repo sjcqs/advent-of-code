@@ -3,6 +3,8 @@ import { Database } from "../database";
 import { Leaderboard } from "../entity/leaderboard";
 import { SlackPublisher } from "./publisher";
 
+const MAX_REFRESH_RATE = 15 * 60 * 1000
+
 export class HomeManager {
     private database: Database
     private api: AdventOfCodeApi
@@ -14,12 +16,14 @@ export class HomeManager {
         this.publisher = publisher
     }
 
-    async updateHome(userId: string) {
+    async updateHome(userId: string, refresh: boolean = false) {
         const homeLastUpdate = await this.database.getHomeLastUpdate(userId)
         const lastUpdate = await this.database.getLastUpdate()
 
         let leaderboard: Promise<Leaderboard>
-        if (lastUpdate === null) {
+        const shouldRefresh = lastUpdate === null ||
+            (refresh && lastUpdate - homeLastUpdate > MAX_REFRESH_RATE)
+        if (shouldRefresh) {
             leaderboard = this.api.getLeaderboard()
                 .then(this.database.putLeaderboard.bind(this))
         } else {
