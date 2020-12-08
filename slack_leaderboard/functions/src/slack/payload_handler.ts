@@ -31,6 +31,7 @@ export class SlackPayloadClient {
         const payloadRequest: PayloadRequest = request.body
         const payload: Payload = JSON.parse(payloadRequest.payload)
         
+        console.log("payload: " + payload.type)
         if (payload.type === PayloadActions.refresh) {
             return this.homeManager.updateHome(payload.user.id, true)
         }

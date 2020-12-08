@@ -1,5 +1,5 @@
 import { SlackConfig } from '../entity/configs';
-import { Request, Response} from '../entity/types'
+import { Request, Response } from '../entity/types'
 import { CompleteChallenge } from './complete_challenge';
 import { EventRequest } from './event_request';
 import { HomeManager } from './home_manager';
@@ -16,7 +16,7 @@ export class SlackEventClient {
     private completeChallenge: CompleteChallenge
     private verifySigningSecret: VerifySigningSecret
 
-    constructor (config: SlackConfig, homeManager: HomeManager) {
+    constructor(config: SlackConfig, homeManager: HomeManager) {
         this.verifyAppId = new VerifyAppId(config.appId)
         this.completeChallenge = new CompleteChallenge()
         this.verifySigningSecret = new VerifySigningSecret(config.signingSecret)
@@ -41,10 +41,11 @@ export class SlackEventClient {
     private async handleRequest(request: Request, response: Response<any>) {
         response.status(200).send()
         const model: EventRequest = request.body
-        if (model.type === TYPE_CALLBACK &&
-            model.event.type === EVENT_OPENED_APP_HOME
-        ) {
-            return this.homeManager.updateHome(model.event.user)
+        if (model.type === TYPE_CALLBACK) {
+            console.log("event: " + model.event.type)
+            if (model.event.type === EVENT_OPENED_APP_HOME) {
+                return this.homeManager.updateHome(model.event.user)
+            }
         }
     }
 }
