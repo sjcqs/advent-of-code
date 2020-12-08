@@ -25,7 +25,7 @@ export class HomeManager {
             (refresh && Date.now() - lastUpdate > MAX_REFRESH_RATE)
         if (shouldRefresh) {
             leaderboard = this.api.getLeaderboard()
-                .then(this.database.putLeaderboard.bind(this))
+                .then((newLeaderboard) => this.database.putLeaderboard(newLeaderboard))
             lastUpdate = await this.database.getLastUpdate()
         } else {
             leaderboard = this.database.getLeaderboard()
