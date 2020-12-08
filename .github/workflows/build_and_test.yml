@@ -5,7 +5,7 @@ on:
       - 'slack_leaderboard/**'
 
 jobs:
-  deploy:
+  build_and_test:
     runs-on: ubuntu-latest
     env:
       CI: true
