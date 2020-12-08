@@ -25,7 +25,7 @@ export class SlackPublisher {
     }
 
     async updateHome(userId: string, leaderboard: Leaderboard) {
-        const blocks = this.messageBuilder.leaderboardBlocks(leaderboard)
+        const blocks = this.messageBuilder.leaderboardBlocks(leaderboard, true)
         const payload = {
             "user_id": userId,
             "view": {
