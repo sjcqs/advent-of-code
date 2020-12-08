@@ -80,14 +80,18 @@ export class MessageBuilder {
             blocks.push(
                 this.divider,
                 this.refreshBlock,
-                this.refreshRateBlock
+                this.refreshRateBlock,
+                this.updateBlock(lastUpdate),
+                this.divider,
+                this.adventOfCodeLink,
             )
+        } else {
+            blocks.push(
+                this.divider,
+                this.adventOfCodeLink,
+                this.updateBlock(lastUpdate),
+            )   
         }
-        blocks.push(
-            this.divider,
-            this.adventOfCodeLink,
-            this.updateBlock(lastUpdate)
-        )
         return blocks
     }
     
