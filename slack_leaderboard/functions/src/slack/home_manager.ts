@@ -18,7 +18,7 @@ export class HomeManager {
 
     async updateHome(userId: string, refresh: boolean = false) {
         const homeLastUpdate = await this.database.getHomeLastUpdate(userId)
-        const lastUpdate = await this.database.getLastUpdate()
+        let lastUpdate = await this.database.getLastUpdate()
 
         let leaderboard: Promise<Leaderboard>
         const shouldRefresh = lastUpdate === null ||
@@ -30,10 +30,11 @@ export class HomeManager {
             leaderboard = this.database.getLeaderboard()
         }
         if (homeLastUpdate === null || homeLastUpdate < lastUpdate) {
+            lastUpdate = await this.database.getLastUpdate()
             return this.publisher.updateHome(
                 userId,
                 await leaderboard,
-                await this.database.getLastUpdate()
+                lastUpdate
             ).then(() => this.database.putHomeUpdate(userId, lastUpdate))
         }
     }
