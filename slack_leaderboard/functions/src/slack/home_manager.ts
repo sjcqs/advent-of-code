@@ -30,8 +30,11 @@ export class HomeManager {
             leaderboard = this.database.getLeaderboard()
         }
         if (homeLastUpdate === null || homeLastUpdate < lastUpdate) {
-            return this.publisher.updateHome(userId, await leaderboard)
-                .then(() => this.database.putHomeUpdate(userId))
+            return this.publisher.updateHome(
+                userId,
+                await leaderboard,
+                await this.database.getLastUpdate()
+            ).then(() => this.database.putHomeUpdate(userId))
         }
     }
 }

@@ -59,7 +59,11 @@ export class MessageBuilder {
 		],
 	}
 
-    leaderboardBlocks(leaderboard: Leaderboard, addRefreshButton: boolean = false) {
+    leaderboardBlocks(
+        leaderboard: Leaderboard,
+        lastUpdate: number,
+        addRefreshButton: boolean = false
+    ) {
         const members = this.sortMembers(leaderboard)
         const blocks = [
             this.header,
@@ -82,18 +86,18 @@ export class MessageBuilder {
         blocks.push(
             this.divider,
             this.adventOfCodeLink,
-            this.updateBlock()
+            this.updateBlock(lastUpdate)
         )
         return blocks
     }
     
-    private updateBlock() {
+    private updateBlock(lastUpdate: number) {
         return {
             "type": "context",
             "elements": [
                 {
                     "type": "plain_text",
-                    "text": `Updated at ${new Date().toLocaleString()}`,
+                    "text": `Updated at ${new Date(lastUpdate).toLocaleString()}`,
                     "emoji": false,
                 },
             ],

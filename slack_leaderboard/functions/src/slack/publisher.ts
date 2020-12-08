@@ -14,8 +14,8 @@ export class SlackPublisher {
         this.messageBuilder = new MessageBuilder()
     }
 
-    async publish(leaderboard: Leaderboard) {
-        const blocks = this.messageBuilder.leaderboardBlocks(leaderboard)
+    async publish(leaderboard: Leaderboard, lastUpdate: number) {
+        const blocks = this.messageBuilder.leaderboardBlocks(leaderboard, lastUpdate)
         const payload = {
             "username": "Advent of Code",
             "icon_emoji": ":aoc:",
@@ -24,8 +24,8 @@ export class SlackPublisher {
         return Axios.post(this.config.hookUrl, payload)
     }
 
-    async updateHome(userId: string, leaderboard: Leaderboard) {
-        const blocks = this.messageBuilder.leaderboardBlocks(leaderboard, true)
+    async updateHome(userId: string, leaderboard: Leaderboard, lastUpdate: number) {
+        const blocks = this.messageBuilder.leaderboardBlocks(leaderboard, lastUpdate, true)
         const payload = {
             "user_id": userId,
             "view": {

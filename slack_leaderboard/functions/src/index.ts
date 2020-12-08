@@ -20,8 +20,9 @@ const slackPayloadClient = new SlackPayloadClient(config.slack, homeManager)
 
 async function getAndPostLeaderboard() {
     const leaderboard: Leaderboard = await api.getLeaderboard()
+    const lastUpdate = await database.getLastUpdate()
 
-    await publisher.publish(leaderboard)
+    await publisher.publish(leaderboard, lastUpdate)
         .then(() => database.putLeaderboard(leaderboard))
 }
 
