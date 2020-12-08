@@ -6,7 +6,6 @@ class GameConsole {
 
     fun run(
         instructions: List<Instruction>,
-        abortOnEncountered: Boolean = true,
         initialCursor: Int = 0,
         initialAccumulator: Int = 0
     ): Result {
@@ -25,9 +24,7 @@ class GameConsole {
             } else {
                 instruction = instructions[cursor]
                 if (encountered.getOrDefault(cursor, false)) {
-                    if (abortOnEncountered || instruction is Instruction.Jump) {
-                        return Result(accumulator, Status.Aborted)
-                    }
+                    return Result(accumulator, Status.Aborted)
                 }
             }
         }

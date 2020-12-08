@@ -8,7 +8,6 @@ object Puzzle08Part02 : Puzzle<List<Instruction>, Int>(Day08Mapper) {
 
     override suspend fun doJob(input: List<Instruction>): Int {
         val inputs = mutableListOf<List<Instruction>>()
-        println(input.joinToString())
         input.forEachIndexed { index, instruction ->
             if (instruction is Instruction.NoOp) {
                 val element = input.toMutableList()
@@ -21,9 +20,7 @@ object Puzzle08Part02 : Puzzle<List<Instruction>, Int>(Day08Mapper) {
             }
         }
         inputs.map { instructions ->
-            CONSOLE.run(instructions, abortOnEncountered = false).also { result ->
-                println("Finished: $result, ${instructions.joinToString()}")
-            }
+            CONSOLE.run(instructions)
         }.map { result ->
             if (result.status == GameConsole.Status.Finished) {
                 return result.accumulator
