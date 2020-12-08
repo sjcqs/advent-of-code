@@ -14,7 +14,9 @@ export class VerifyAppId implements Interceptor {
     async intercept(chain: Chain): Promise<void> {
         const body = chain.request.body
         let request: AppIdHolder
-        if (body as PayloadRequest) {
+        
+        
+        if ((body as PayloadRequest).payload) {
             request = JSON.parse(body.payload)
         } else {
             request = body
