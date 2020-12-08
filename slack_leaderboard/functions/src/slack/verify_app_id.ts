@@ -13,14 +13,7 @@ export class VerifyAppId implements Interceptor {
 
     async intercept(chain: Chain): Promise<void> {
         const body = chain.request.body
-        let request: AppIdHolder
-        
-        
-        if ((body as PayloadRequest).payload) {
-            request = JSON.parse(body.payload)
-        } else {
-            request = body
-        }
+        const request: AppIdHolder = body
         if(request.api_app_id !== this.appId) {
             console.error("Invalid app id")
             chain.response.status(401).send()
