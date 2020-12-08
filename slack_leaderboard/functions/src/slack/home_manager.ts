@@ -22,15 +22,15 @@ export class HomeManager {
 
         let leaderboard: Promise<Leaderboard>
         const shouldRefresh = lastUpdate === null ||
-            (refresh && lastUpdate - homeLastUpdate > MAX_REFRESH_RATE)
+            (refresh && Date.now() - lastUpdate > MAX_REFRESH_RATE)
         if (shouldRefresh) {
             leaderboard = this.api.getLeaderboard()
                 .then(this.database.putLeaderboard.bind(this))
+            lastUpdate = await this.database.getLastUpdate()
         } else {
             leaderboard = this.database.getLeaderboard()
         }
         if (homeLastUpdate === null || homeLastUpdate < lastUpdate) {
-            lastUpdate = await this.database.getLastUpdate()
             return this.publisher.updateHome(
                 userId,
                 await leaderboard,
