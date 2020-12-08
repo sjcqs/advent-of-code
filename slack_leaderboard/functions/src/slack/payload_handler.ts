@@ -34,7 +34,6 @@ export class SlackPayloadClient {
         
         console.log("payload: " + payload.type)
         if (payload.type === TYPE_BLOCK_ACTIONS) {
-            console.log("payload: " + JSON.stringify(payload.actions))
             if (payload.actions[0].action_id === PayloadActions.refresh) {
                 return this.homeManager.updateHome(payload.user.id, true)
             }
