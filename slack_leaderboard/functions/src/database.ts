@@ -20,10 +20,10 @@ export class Database {
             .then((snapshot) => snapshot.val())
     }
 
-    async putHomeUpdate(userId: string) {
+    async putHomeUpdate(userId: string, update: number) {
         return this.database.ref(Database.Refs.home)
             .child(userId)
-            .set(new Date().getTime())
+            .set(update)
     }
 
     async getHomeLastUpdate(userId: string): Promise<number> {

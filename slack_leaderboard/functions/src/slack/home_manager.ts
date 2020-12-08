@@ -34,7 +34,7 @@ export class HomeManager {
                 userId,
                 await leaderboard,
                 await this.database.getLastUpdate()
-            ).then(() => this.database.putHomeUpdate(userId))
+            ).then(() => this.database.putHomeUpdate(userId, lastUpdate))
         }
     }
 }
