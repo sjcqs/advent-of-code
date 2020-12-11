@@ -10,7 +10,7 @@ abstract class Puzzle<InputType, OutputType>(private val mapper: InputMapper<Inp
     fun runBlocking(fileName: String = inputFileName): OutputType = runBlocking { run(fileName) }
 
     suspend fun run(fileName: String = inputFileName): OutputType {
-        val input = mapper.map(loadResource(fileName))
+        val input = mapper.map(loadResource(fileName).trim())
         println("${this::class.java.simpleName}: Started")
         val output = doJob(input)
         println("${this::class.java.simpleName}: Finished -> $output")
