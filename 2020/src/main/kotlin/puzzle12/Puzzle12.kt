@@ -21,9 +21,7 @@ object Puzzle12 : Puzzle<Puzzle12.Input, Puzzle12.Output>(
 
     private fun moveShip(input: Input, initialShip: Ship): Int {
         val ship = input.instructions.fold(initialShip) { ship, instruction ->
-            instruction.run(ship).also { newShip ->
-                println("Ship: $ship, instruction: $instruction --> $newShip")
-            }
+            instruction.run(ship)
         }
         return ship.distanceTo(initialShip)
     }
