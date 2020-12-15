@@ -2,6 +2,25 @@ import { Leaderboard } from "../entity/leaderboard";
 import { Member } from "../entity/member";
 import { PayloadActions } from "./payload";
 
+const RANK_EMOJIS = [
+    ':woman-amish-technologist:',
+    ':woman-amish-technologist:',
+    ':woman-amish-technologist:',
+    ':woman-amish-technologist:',
+    ':woman-amish-technologist:',
+    ':man-amish-technologist:',
+    ':man-amish-technologist:',
+    ':man-amish-technologist:',
+    ':man-amish-technologist:',
+    ':man-amish-technologist:',
+    ':raccoon-technologist: ',
+]
+
+function randomRankEmoji(): string {
+    const index = Math.floor(Math.random() * RANK_EMOJIS.length);
+    return RANK_EMOJIS[index]
+}
+
 export class MessageBuilder {
     private header = {
         "type": "header",
@@ -137,7 +156,7 @@ export class MessageBuilder {
     }
     
     private otherRankBlock(member: Member, position: number) {
-        return this.rankBlock(":man-amish-technologist:", position, member)
+        return this.rankBlock(randomRankEmoji(), position, member)
     }
 
     private sortMembers(leaderboard: Leaderboard) {
