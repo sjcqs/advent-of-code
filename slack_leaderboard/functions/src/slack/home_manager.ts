@@ -1,5 +1,6 @@
 import { AdventOfCodeApi } from "../advent_of_code";
 import { Database } from "../database";
+import { Leaderboard } from "../entity/leaderboard";
 import { SlackPublisher } from "./publisher";
 
 export class HomeManager {
@@ -18,20 +19,20 @@ export class HomeManager {
         let lastUpdate = await this.database.getLastUpdate()
 
         if (refresh) {
-            const leaderboard = this.api.getLeaderboard()
-                .then((newLeaderboard) => this.database.putLeaderboard(newLeaderboard))
+            const leaderboard: Leaderboard = await this.api.getLeaderboard()
             lastUpdate = await this.database.getLastUpdate()
             return this.publisher.updateHome(
                 userId,
-                await leaderboard,
+                leaderboard,
                 lastUpdate
-            ).then(() => this.database.putHomeUpdate(userId, lastUpdate))
+            ).then(() => this.database.putLeaderboard(leaderboard))
+            .then(() => this.database.putHomeUpdate(userId, lastUpdate))
         } else {
-            const leaderboard = this.database.getLeaderboard()
+            const leaderboard: Leaderboard = await this.database.getLeaderboard()
             if (homeLastUpdate === null || homeLastUpdate < lastUpdate) {
                 return this.publisher.updateHome(
                     userId,
-                    await leaderboard,
+                    leaderboard,
                     lastUpdate
                 ).then(() => this.database.putHomeUpdate(userId, lastUpdate))
             }
