@@ -16,7 +16,7 @@ class Puzzle09(private val windowSize: Int) : Puzzle<List<Long>, Puzzle09.Output
     override suspend fun doJob(input: List<Long>): Output {
         val invalidNumber = findInvalidNumber(input)
         val contiguousSet = findContiguousSet(invalidNumber, input)
-        return Output(invalidNumber, contiguousSet.max()!! + contiguousSet.min()!!)
+        return Output(invalidNumber, contiguousSet.maxOrNull()!! + contiguousSet.minOrNull()!!)
     }
 
     private fun findInvalidNumber(input: List<Long>): Long {
