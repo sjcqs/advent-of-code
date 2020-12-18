@@ -23,6 +23,7 @@ import puzzle13.Puzzle13
 import puzzle14.Puzzle14
 import puzzle15.Puzzle15
 import puzzle16.Puzzle16
+import puzzle17.Puzzle17
 
 fun main() {
     runBlocking {
@@ -49,7 +50,8 @@ fun main() {
         Puzzle13.run()
         Puzzle14.run()
         Puzzle15(2020).run()
-        Puzzle15(30_000_000).run()
+        //Puzzle15(30_000_000).run()
         Puzzle16.run()
+        Puzzle17.run()
     }
 }
