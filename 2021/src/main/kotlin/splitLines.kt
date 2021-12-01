@@ -1,0 +1,1 @@
+fun String.split() = split("\n")
