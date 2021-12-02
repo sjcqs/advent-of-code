@@ -33,3 +33,10 @@ This project publish the leaderboard everyday in a Slack channel
 
 To deploy:
 `./scripts/deploy.sh`
+
+## References
+
+- Slack bot token: https://api.slack.com/authentication/token-types#bot
+- Slack requests verification: https://api.slack.com/authentication/verifying-requests-from-slack
+-  Firebase CLI: https://firebase.google.com/docs/cli
+-  Firebase Functions: https://firebase.google.com/docs/reference/functions
