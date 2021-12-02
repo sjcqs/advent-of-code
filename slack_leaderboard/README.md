@@ -8,8 +8,8 @@ This project publish the leaderboard everyday in a Slack channel
 3. Login with the CLI: `firebase login` (`firebase login:ci` to get a token)
 4. Configuration:
    After the configuration `firebase functions:config:get` should be: 
-   ``` json
-   {
+``` (json)
+{
   "adventofcode": {
     "url": "https://adventofcode.com/2021/leaderboard/private/view/<id>", // the id can be found in the leaderboard path
     "session": "<SESSION_COOKIE>" // the value of your session cookie on Advent of Code
@@ -24,7 +24,7 @@ This project publish the leaderboard everyday in a Slack channel
     "verification_token": "<verification_token>" // can be found in the Slack bot configuration
   }
 }
-   ```
+```
    To configure:
    - `firebase functions:config:set adventofcode.url=<value>`
    - `firebase functions:config:set adventofcode.session=<value>`
