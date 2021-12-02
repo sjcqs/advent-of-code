@@ -44,10 +44,38 @@ To deploy:
 `./scripts/deploy.sh`
 
 ## Slack bot configuration
- - In "Interactivity & Shortcut": `slackPayloads` function URL (ex: `https://us-central1-<project-id>.cloudfunctions.net/slackPayloads`)
+Import the following manifest and replace `<firebase-project-baseurl>` by the your functions base url (in Firebase / Functions): 
+``` yaml
+_metadata:
+  major_version: 1
+  minor_version: 1
+display_information:
+  name: Advent of Code - Leaderboard
+features:
+  app_home:
+    home_tab_enabled: true
+    messages_tab_enabled: false
+    messages_tab_read_only_enabled: true
+  bot_user:
+    display_name: Advent of Code - Leaderboard
+    always_online: true
+oauth_config:
+  scopes:
+    bot:
+      - incoming-webhook
+settings:
+  event_subscriptions:
+    request_url: https://<firebase-project-baseurl>.cloudfunctions.net/slackEvents
+    bot_events:
+      - app_home_opened
+  interactivity:
+    is_enabled: true
+    request_url: https://<firebase-project-baseurl>.cloudfunctions.net/slackPayloads
+  org_deploy_enabled: false
+  socket_mode_enabled: false
+  token_rotation_enabled: false
 
- - In "Event Subscriptions": `slackEvents` function URL (ex: `https://us-central1-<project-id>.cloudfunctions.net/slackEvents`)
-    - Add `app_home_opened` event to the bot events
+```
 
 ## References
 
