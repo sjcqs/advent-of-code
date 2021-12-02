@@ -77,6 +77,16 @@ settings:
 
 ```
 
+## Testing locally
+
+https://firebase.google.com/docs/functions/local-shell
+
+Example: 
+1. `firebase functions:config:get > .runtimeconfig.json`
+2. `export GOOGLE_APPLICATION_CREDENTIALS="path-to-json-key"`
+3. - `firebase functions:shell`
+4. - `firebase > scheduledFetchLeaderboard()`
+
 ## References
 
 - Slack bot token: https://api.slack.com/authentication/token-types#bot
