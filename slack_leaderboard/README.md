@@ -3,10 +3,18 @@
 This project publish the leaderboard everyday in a Slack channel
 
 ## Configuration
-1. Create a Firebase project (Blaze level required to do outgress)
+1. Create a Firebase project (Blaze level required to do scheduled function)
+    Needed features:
+    - Realtime database (read: false, write: false)
+    - Functions
+  
 2. Install the Firebase CLI: - https://firebase.google.com/docs/cli to update the configuration
-3. Login with the CLI: `firebase login` (`firebase login:ci` to get a token)
-4. Configuration:
+   
+3. Edit `.firebaserc` with your project name
+   
+4. Login with the CLI: `firebase login` (`firebase login:ci` to get a token)
+   
+5. Configuration:
    After the configuration `firebase functions:config:get` should be: 
 ``` (json)
 {
@@ -33,6 +41,12 @@ This project publish the leaderboard everyday in a Slack channel
 
 To deploy:
 `./scripts/deploy.sh`
+
+## Slack bot configuration
+ - In "Interactivity & Shortcut": `slackPayloads` function URL (ex: `https://us-central1-<project-id>.cloudfunctions.net/slackPayloads`)
+
+ - In "Event Subscriptions": `slackEvents` function URL (ex: `https://us-central1-<project-id>.cloudfunctions.net/slackEvents`)
+    - Add `app_home_opened` event to the bot events
 
 ## References
 
