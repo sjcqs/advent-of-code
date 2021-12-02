@@ -7,6 +7,7 @@ This project publish the leaderboard everyday in a Slack channel
     Needed features:
     - Realtime database (read: false, write: false)
     - Functions
+    - Pub/Sub (for scheduled functions): https://firebase.google.com/docs/functions/schedule-functions
   
 2. Install the Firebase CLI: - https://firebase.google.com/docs/cli to update the configuration
    
