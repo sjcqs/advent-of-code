@@ -46,7 +46,7 @@ export class MessageBuilder {
                 "emoji": true,
             },
             "value": "advent_of_code",
-            "url": "https://adventofcode.com/2020",
+            "url": "https://adventofcode.com/2021",
             "action_id": PayloadActions.adventOfCode,
         },
     }
