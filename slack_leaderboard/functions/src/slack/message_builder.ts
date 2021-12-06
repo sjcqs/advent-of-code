@@ -3,16 +3,23 @@ import { Member } from "../entity/member";
 import { PayloadActions } from "./payload";
 
 const RANK_EMOJIS = [
-    ':woman-amish-technologist:',
-    ':woman-amish-technologist:',
+    ':female-technologist:',
+    ':female-technologist:',
+    ':female-technologist:',
+    ':female-technologist:',
+    ':female-technologist:',
+    ':male-technologist:',
+    ':male-technologist:',
+    ':male-technologist:',
+    ':male-technologist:',
     ':woman-amish-technologist:',
     ':woman-amish-technologist:',
     ':woman-amish-technologist:',
     ':man-amish-technologist:',
     ':man-amish-technologist:',
-    ':man-amish-technologist:',
-    ':man-amish-technologist:',
-    ':man-amish-technologist:',
+    ':muff-technologist:',
+    ':muff-technologist:',
+    ':muff-technologist:',
     ':raccoon-technologist: ',
 ]
 
@@ -36,7 +43,7 @@ export class MessageBuilder {
         "type": "section",
         "text": {
             "type": "mrkdwn",
-            "text": ":brain: Resolve the next puzzle",
+            "text": ":brain: Solve the next puzzle",
         },
         "accessory": {
             "type": "button",
