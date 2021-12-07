@@ -21,11 +21,9 @@ fun part01(input: List<Int>): Int {
 }
 
 fun part02(input: List<Int>): Int {
-    val fuelCost = generateSequence(1) { 1 + it }
-    val cache = mutableMapOf<Int, Int>()
-    return totalFuelCost(input) { source, destination ->
+    return totalFuelCost(input) { source: Int, destination: Int ->
         val distance = abs(source - destination)
-        cache.getOrPut(distance) { fuelCost.take(distance).sum() }
+        (distance * (distance + 1)) / 2
     }
 }
 
