@@ -27,7 +27,7 @@ async function getAndPostLeaderboard() {
 }
 
 exports.scheduledFetchLeaderboard = functions.pubsub
-    .schedule('0 14 * * *')
+    .schedule('every day of december 14:00')
     .timeZone('Europe/Paris')
     .onRun(getAndPostLeaderboard)
 
