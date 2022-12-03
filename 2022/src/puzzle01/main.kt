@@ -6,8 +6,8 @@ fun main() {
     val example = readInput("example/01.txt").let(::map)
     val input = readInput("01.txt").let(::map)
 
-    assert(part01(example) == 24000L)
-    assert(part02(example) == 45000L)
+    require(part01(example) == 24000L)
+    require(part02(example) == 45000L)
 
     println(part01(input))
     println(part02(input))
