@@ -5,7 +5,7 @@ import requireEquals
 import split
 
 
-sealed interface Command {
+private sealed interface Command {
     val name: CommandName
 
     data class ChangeDirectory(
@@ -155,7 +155,7 @@ fun directoriesLighterThan(root: Content.Directory, maxSize: Long): List<Content
     }
 }
 
-fun buildFileTree(commands: List<Command>): Content.Directory {
+private fun buildFileTree(commands: List<Command>): Content.Directory {
     val fileTree = mutableMapOf<String, Content>(
         "/" to Content.Directory(path = "/", children = emptyList(), parent = null)
     )
